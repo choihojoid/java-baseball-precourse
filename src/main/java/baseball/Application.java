@@ -5,6 +5,8 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Application {
 
@@ -20,11 +22,29 @@ public class Application {
     }
 
     private static String generateNumber() {
-        final int randNum = Randoms.pickNumberInRange(minNum, maxNum);
+        String randStr = null;
 
-        final String randStr = String.valueOf(randNum);
+        do {
+            randStr = getRandomNumberAsString();
+        } while (!checkDifferentDigits(randStr));
 
         return randStr;
+    }
+
+    private static String getRandomNumberAsString() {
+        int randNum = Randoms.pickNumberInRange(minNum, maxNum);
+
+        return String.valueOf(randNum);
+    }
+
+    private static boolean checkDifferentDigits(final String str) {
+        final Set<Character> characterSet = new HashSet<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            characterSet.add(str.charAt(i));
+        }
+
+        return characterSet.size() == digits;
     }
 
     private static String receiveNumber() throws IOException {
@@ -39,7 +59,7 @@ public class Application {
         return inputStr;
     }
 
-    private static void validateInteger(String str) {
+    private static void validateInteger(final String str) {
         try {
             Integer.parseInt(str);
         } catch (NumberFormatException e) {
@@ -47,7 +67,7 @@ public class Application {
         }
     }
 
-    private static void validateDigits(String str) {
+    private static void validateDigits(final String str) {
         if (str.length() != digits) {
             throw new IllegalArgumentException("the digits do not match.");
         }
