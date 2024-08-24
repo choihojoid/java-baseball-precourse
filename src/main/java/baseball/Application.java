@@ -1,5 +1,6 @@
 package baseball;
 
+import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.io.BufferedReader;
@@ -14,15 +15,14 @@ public class Application {
     private static final int maxNum = 999;
     private static final int digits = 3;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         do {
             playBaseBall();
         } while (!isQuit());
     }
 
-    private static void playBaseBall() throws IOException {
+    private static void playBaseBall() {
         String randStr = generateNumberAsString();
-        System.out.println(randStr);
         int strikeCnt = 0;
         int ballCnt = 0;
 
@@ -63,11 +63,8 @@ public class Application {
         return characterSet.size() == digits;
     }
 
-    private static String receiveNumberAsString() throws IOException {
-        final InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-        final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-        final String inputStr = bufferedReader.readLine();
+    private static String receiveNumberAsString() {
+        final String inputStr = Console.readLine();
 
         validateInteger(inputStr);
         validateDigits(inputStr);
@@ -120,16 +117,13 @@ public class Application {
         System.out.printf("%d볼 %d스트라이크", ballCnt, strikeCnt);
     }
 
-    private static boolean isQuit() throws IOException {
+    private static boolean isQuit() {
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
         String inputStr = null;
 
         do {
-            final InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-            final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-            inputStr = bufferedReader.readLine();
+            inputStr = Console.readLine();
         } while (!checkOneOrTwo(inputStr));
 
         return inputStr.equals("2");
