@@ -18,7 +18,11 @@ public class Application {
         String randStr = generateNumberAsString();
         String inputStr = receiveNumberAsString();
 
-        int strikeCnt = calculateStrike(randStr, inputStr);
+        int[] counts = calculateStrikeAndBall(randStr, inputStr);
+        int strikeCnt = counts[0];
+        int ballCnt = counts[1];
+
+        printGameResult(strikeCnt, ballCnt);
     }
 
     private static String generateNumberAsString() {
@@ -73,16 +77,35 @@ public class Application {
         }
     }
 
-    private static int calculateStrike(final String randStr, final String inputStr) {
-        int cnt = 0;
+    private static int[] calculateStrikeAndBall(final String randStr, final String inputStr) {
+        int[] counts = new int[2];
 
         for (int i = 0; i < randStr.length(); i++) {
             if (randStr.charAt(i) == inputStr.charAt(i)) {
-                cnt++;
+                counts[0]++;
+                continue;
+            }
+
+            if (inputStr.contains(String.valueOf(randStr.charAt(i)))) {
+                counts[1]++;
             }
         }
 
-        return cnt;
+        return counts;
+    }
+
+    private static void printGameResult(int strikeCnt, int ballCnt) {
+        if (strikeCnt + ballCnt == 0) {
+            System.out.println("낫싱");
+            return;
+        }
+
+        if (strikeCnt == digits) {
+            System.out.println("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            return;
+        }
+
+        System.out.printf("%d볼 %d스트라이크", ballCnt, strikeCnt);
     }
 
 }
