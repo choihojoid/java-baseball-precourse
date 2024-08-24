@@ -4,7 +4,6 @@ import camp.nextstep.edu.missionutils.Randoms;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Application {
@@ -14,17 +13,18 @@ public class Application {
 
     public static void main(String[] args) throws IOException {
         int randNum = Randoms.pickNumberInRange(minNum, maxNum);
-        int inputNum = receiveNumber();
+        String randStr = String.valueOf(randNum);
+
+        String inputStr = receiveNumber();
     }
 
-    private static int receiveNumber() throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+    private static String receiveNumber() throws IOException {
+        final InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+        final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-        String inputStr = bufferedReader.readLine();
-        int inputNum = Integer.parseInt(inputStr);
+        final String inputStr = bufferedReader.readLine();
 
-        return inputNum;
+        return inputStr;
     }
 
 }
