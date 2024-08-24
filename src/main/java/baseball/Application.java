@@ -1,7 +1,14 @@
 package baseball;
 
+import camp.nextstep.edu.missionutils.Randoms;
+
 public class Application {
+
+    private static final int minNum = 100;
+    private static final int maxNum = 999;
+
     public static void main(String[] args) {
-        //TODO: 숫자 야구 게임 구현
+        int randNum = Randoms.pickNumberInRange(minNum, maxNum);
     }
+
 }
