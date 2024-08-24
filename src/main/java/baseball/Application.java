@@ -12,12 +12,27 @@ public class Application {
     private static final int maxNum = 999;
 
     public static void main(String[] args) throws IOException {
-        int randNum = Randoms.pickNumberInRange(minNum, maxNum);
-        String randStr = String.valueOf(randNum);
-
+        String randStr = generateNumber();
         String inputStr = receiveNumber();
 
         int strikeCnt = calculateStrike(randStr, inputStr);
+    }
+
+    private static String generateNumber() {
+        final int randNum = Randoms.pickNumberInRange(minNum, maxNum);
+
+        final String randStr = String.valueOf(randNum);
+
+        return randStr;
+    }
+
+    private static String receiveNumber() throws IOException {
+        final InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+        final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+        final String inputStr = bufferedReader.readLine();
+
+        return inputStr;
     }
 
     private static int calculateStrike(final String randStr, final String inputStr) {
@@ -30,15 +45,6 @@ public class Application {
         }
 
         return cnt;
-    }
-
-    private static String receiveNumber() throws IOException {
-        final InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-        final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-        final String inputStr = bufferedReader.readLine();
-
-        return inputStr;
     }
 
 }
