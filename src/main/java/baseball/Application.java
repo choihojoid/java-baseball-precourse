@@ -94,7 +94,7 @@ public class Application {
         return counts;
     }
 
-    private static void printGameResult(int strikeCnt, int ballCnt) {
+    private static void printGameResult(final int strikeCnt, final int ballCnt) {
         if (strikeCnt + ballCnt == 0) {
             System.out.println("낫싱");
             return;
