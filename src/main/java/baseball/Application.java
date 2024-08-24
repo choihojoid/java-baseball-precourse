@@ -16,6 +16,20 @@ public class Application {
         String randStr = String.valueOf(randNum);
 
         String inputStr = receiveNumber();
+
+        int strikeCnt = calculateStrike(randStr, inputStr);
+    }
+
+    private static int calculateStrike(final String randStr, final String inputStr) {
+        int cnt = 0;
+
+        for (int i = 0; i < randStr.length(); i++) {
+            if (randStr.charAt(i) == inputStr.charAt(i)) {
+                cnt++;
+            }
+        }
+
+        return cnt;
     }
 
     private static String receiveNumber() throws IOException {
