@@ -15,14 +15,26 @@ public class Application {
     private static final int digits = 3;
 
     public static void main(String[] args) throws IOException {
+        do {
+            playBaseBall();
+        } while (!isQuit());
+    }
+
+    private static void playBaseBall() throws IOException {
         String randStr = generateNumberAsString();
-        String inputStr = receiveNumberAsString();
+        System.out.println(randStr);
+        int strikeCnt = 0;
+        int ballCnt = 0;
 
-        int[] counts = calculateStrikeAndBall(randStr, inputStr);
-        int strikeCnt = counts[0];
-        int ballCnt = counts[1];
+        do {
+            String inputStr = receiveNumberAsString();
 
-        printGameResult(strikeCnt, ballCnt);
+            int[] counts = calculateStrikeAndBall(randStr, inputStr);
+            strikeCnt = counts[0];
+            ballCnt = counts[1];
+
+            printGameResult(strikeCnt, ballCnt);
+        } while (!isEnd(strikeCnt));
     }
 
     private static String generateNumberAsString() {
@@ -67,13 +79,13 @@ public class Application {
         try {
             Integer.parseInt(str);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("a value other than a number has been entered.");
+            throw new IllegalArgumentException("숫자가 아닌 값을 입력하셨습니다.");
         }
     }
 
     private static void validateDigits(final String str) {
         if (str.length() != digits) {
-            throw new IllegalArgumentException("the digits do not match.");
+            throw new IllegalArgumentException("자릿수가 일치하지 않습니다.");
         }
     }
 
@@ -106,6 +118,29 @@ public class Application {
         }
 
         System.out.printf("%d볼 %d스트라이크", ballCnt, strikeCnt);
+    }
+
+    private static boolean isQuit() throws IOException {
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
+        String inputStr = null;
+
+        do {
+            final InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+            final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            inputStr = bufferedReader.readLine();
+        } while (!checkOneOrTwo(inputStr));
+
+        return inputStr.equals("2");
+    }
+
+    private static boolean checkOneOrTwo(final String inputStr) {
+        return inputStr.equals("1") || inputStr.equals("2");
+    }
+
+    private static boolean isEnd(int strikeCnt) {
+        return strikeCnt == digits;
     }
 
 }
