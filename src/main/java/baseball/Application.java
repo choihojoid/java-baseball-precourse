@@ -33,9 +33,18 @@ public class Application {
 
         final String inputStr = bufferedReader.readLine();
 
+        validateInteger(inputStr);
         validateDigits(inputStr);
 
         return inputStr;
+    }
+
+    private static void validateInteger(String str) {
+        try {
+            Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("a value other than a number has been entered.");
+        }
     }
 
     private static void validateDigits(String str) {
