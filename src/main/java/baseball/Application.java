@@ -10,6 +10,7 @@ public class Application {
 
     private static final int minNum = 100;
     private static final int maxNum = 999;
+    private static final int digits = 3;
 
     public static void main(String[] args) throws IOException {
         String randStr = generateNumber();
@@ -32,7 +33,15 @@ public class Application {
 
         final String inputStr = bufferedReader.readLine();
 
+        validateDigits(inputStr);
+
         return inputStr;
+    }
+
+    private static void validateDigits(String str) {
+        if (str.length() != digits) {
+            throw new IllegalArgumentException("the digits do not match.");
+        }
     }
 
     private static int calculateStrike(final String randStr, final String inputStr) {
