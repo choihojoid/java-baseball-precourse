@@ -15,13 +15,13 @@ public class Application {
     private static final int digits = 3;
 
     public static void main(String[] args) throws IOException {
-        String randStr = generateNumber();
-        String inputStr = receiveNumber();
+        String randStr = generateNumberAsString();
+        String inputStr = receiveNumberAsString();
 
         int strikeCnt = calculateStrike(randStr, inputStr);
     }
 
-    private static String generateNumber() {
+    private static String generateNumberAsString() {
         String randStr = null;
 
         do {
@@ -47,7 +47,7 @@ public class Application {
         return characterSet.size() == digits;
     }
 
-    private static String receiveNumber() throws IOException {
+    private static String receiveNumberAsString() throws IOException {
         final InputStreamReader inputStreamReader = new InputStreamReader(System.in);
         final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
