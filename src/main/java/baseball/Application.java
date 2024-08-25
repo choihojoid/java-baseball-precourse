@@ -122,7 +122,17 @@ public class Application {
             return;
         }
 
-        System.out.printf("%d볼 %d스트라이크", ballCnt, strikeCnt);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (ballCnt != 0) {
+            stringBuilder.append(String.format("%d볼", ballCnt)).append(" ");
+        }
+
+        if (strikeCnt != 0) {
+            stringBuilder.append(String.format("%d스트라이크", strikeCnt));
+        }
+
+        System.out.println(stringBuilder);
     }
 
     private static boolean checkQuit() {
