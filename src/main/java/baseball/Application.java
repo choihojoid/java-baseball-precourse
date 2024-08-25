@@ -122,7 +122,7 @@ public class Application {
             return;
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
 
         if (ballCnt != 0) {
             stringBuilder.append(String.format("%d볼", ballCnt)).append(" ");
