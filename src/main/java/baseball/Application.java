@@ -63,13 +63,12 @@ public class Application {
     }
 
     private static boolean checkDifferentDigits(final String str) {
-        final Set<Character> characterSet = new HashSet<>();
+        final int size = str.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.toSet())
+                .size();
 
-        for (int i = 0; i < str.length(); i++) {
-            characterSet.add(str.charAt(i));
-        }
-
-        return characterSet.size() == digits;
+        return size == digits;
     }
 
     private static String receiveNumberAsString() {
