@@ -20,11 +20,11 @@ public class Application {
     public static void main(String[] args) {
         do {
             playBaseBall();
-        } while (!isQuit());
+        } while (!checkQuit());
     }
 
     private static void playBaseBall() {
-        String randStr = getRandomNumberAsString();
+        String randStr = wrongGetRandomNumberAsString();
         int strikeCnt = 0;
         int ballCnt = 0;
 
@@ -36,13 +36,13 @@ public class Application {
             ballCnt = counts[1];
 
             printGameResult(strikeCnt, ballCnt);
-        } while (!isEnd(strikeCnt));
+        } while (!checkEnd(strikeCnt));
     }
 
     private static String getRandomNumberAsString() {
         return Stream.generate(() -> Randoms.pickNumberInRange(minNum, maxNum))
                 .distinct()
-                .limit(3)
+                .limit(digits)
                 .map(String::valueOf)
                 .collect(Collectors.joining());
     }
@@ -53,7 +53,6 @@ public class Application {
                 .map(String::valueOf)
                 .filter(Application::checkIncludeZero)
                 .filter(Application::checkDifferentDigits)
-                .limit(1)
                 .findFirst()
                 .orElseThrow(AssertionError::new);
     }
@@ -129,7 +128,7 @@ public class Application {
         System.out.printf("%d볼 %d스트라이크", ballCnt, strikeCnt);
     }
 
-    private static boolean isQuit() {
+    private static boolean checkQuit() {
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
 
         String inputStr = null;
@@ -145,7 +144,7 @@ public class Application {
         return inputStr.equals("1") || inputStr.equals("2");
     }
 
-    private static boolean isEnd(int strikeCnt) {
+    private static boolean checkEnd(int strikeCnt) {
         return strikeCnt == digits;
     }
 
