@@ -24,7 +24,8 @@ public class Application {
     }
 
     private static void playBaseBall() {
-        String randStr = wrongGetRandomNumberAsString();
+        String randStr = getRandomNumberAsString();
+
         int strikeCnt = 0;
         int ballCnt = 0;
 
