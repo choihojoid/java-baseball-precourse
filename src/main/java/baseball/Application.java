@@ -136,11 +136,11 @@ public class Application {
     }
 
     private static boolean checkQuit() {
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-
         String inputStr = null;
 
         do {
+            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+
             inputStr = Console.readLine();
         } while (!checkOneOrTwo(inputStr));
 
