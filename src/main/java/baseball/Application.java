@@ -3,7 +3,6 @@ package baseball;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -51,6 +50,7 @@ public class Application {
     // TODO: 1자리씩 뽑는 것이 아니라 한번에 3자리 수 뽑아서 반환하면 테스트할 때 timeout 발생하는 이유를 분석한다.
     private static String wrongGetRandomNumberAsString() {
         return Stream.generate(() -> Randoms.pickNumberInRange(wrongMinNum, wrongMaxNum))
+                // .peek(System.out::println)
                 .map(String::valueOf)
                 .filter(Application::checkIncludeZero)
                 .filter(Application::checkDifferentDigits)
