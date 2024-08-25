@@ -3,16 +3,18 @@ package baseball;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Application {
 
-    private static final int minNum = 100;
-    private static final int maxNum = 999;
+    private static final int minNum = 1;
+    private static final int maxNum = 9;
+
+    private static final int wrongMinNum = 100;
+    private static final int wrongMaxNum = 999;
+
     private static final int digits = 3;
 
     public static void main(String[] args) {
@@ -22,7 +24,7 @@ public class Application {
     }
 
     private static void playBaseBall() {
-        String randStr = generateNumberAsString();
+        String randStr = getRandomNumberAsString();
         int strikeCnt = 0;
         int ballCnt = 0;
 
@@ -37,20 +39,27 @@ public class Application {
         } while (!isEnd(strikeCnt));
     }
 
-    private static String generateNumberAsString() {
-        String randStr = null;
-
-        do {
-            randStr = getRandomNumberAsString();
-        } while (!checkDifferentDigits(randStr));
-
-        return randStr;
+    private static String getRandomNumberAsString() {
+        return Stream.generate(() -> Randoms.pickNumberInRange(minNum, maxNum))
+                .distinct()
+                .limit(3)
+                .map(String::valueOf)
+                .collect(Collectors.joining());
     }
 
-    private static String getRandomNumberAsString() {
-        int randNum = Randoms.pickNumberInRange(minNum, maxNum);
+    // TODO: 1자리씩 뽑는 것이 아니라 한번에 3자리 수 뽑아서 반환하면 테스트할 때 timeout 발생하는 이유를 분석한다.
+    private static String wrongGetRandomNumberAsString() {
+        return Stream.generate(() -> Randoms.pickNumberInRange(wrongMinNum, wrongMaxNum))
+                .map(String::valueOf)
+                .filter(Application::checkIncludeZero)
+                .filter(Application::checkDifferentDigits)
+                .limit(1)
+                .findFirst()
+                .orElseThrow(AssertionError::new);
+    }
 
-        return String.valueOf(randNum);
+    private static boolean checkIncludeZero(final String str) {
+        return !str.contains("0");
     }
 
     private static boolean checkDifferentDigits(final String str) {
@@ -111,6 +120,9 @@ public class Application {
 
         if (strikeCnt == digits) {
             System.out.println("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            return;
+        } else if (strikeCnt == 0) {
+            System.out.printf("%d볼", ballCnt);
             return;
         }
 
