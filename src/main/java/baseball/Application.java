@@ -24,15 +24,15 @@ public class Application {
     }
 
     private static void playBaseBall() {
-        String randStr = getRandomNumberAsString();
+        final String randStr = getRandomNumberAsString();
 
         int strikeCnt = 0;
         int ballCnt = 0;
 
         do {
-            String inputStr = receiveNumberAsString();
+            final String inputStr = receiveNumberAsString();
 
-            int[] counts = calculateStrikeAndBall(randStr, inputStr);
+            final int[] counts = calculateStrikeAndBall(randStr, inputStr);
             strikeCnt = counts[0];
             ballCnt = counts[1];
 
@@ -95,7 +95,7 @@ public class Application {
     }
 
     private static int[] calculateStrikeAndBall(final String randStr, final String inputStr) {
-        int[] counts = new int[2];
+        final int[] counts = new int[2];
 
         for (int i = 0; i < randStr.length(); i++) {
             if (randStr.charAt(i) == inputStr.charAt(i)) {
@@ -119,9 +119,6 @@ public class Application {
 
         if (strikeCnt == digits) {
             System.out.println("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            return;
-        } else if (strikeCnt == 0) {
-            System.out.printf("%d볼", ballCnt);
             return;
         }
 
