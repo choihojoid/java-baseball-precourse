@@ -5,7 +5,6 @@ public final class Game {
     private final int minNum = 1;
     private final int maxNum = 9;
     private final int digits = 3;
-
     private final Bot bot;
     private final Player player;
 
@@ -13,13 +12,13 @@ public final class Game {
     private int strikeCnt;
     private int ballCnt;
 
-    private Game(Status status, Bot bot, Player player) {
+    private Game(final Status status, final Bot bot, final Player player) {
         this.status = status;
         this.bot = bot;
         this.player = player;
     }
 
-    public static Game getInstance(Bot bot, Player player) {
+    public static Game getInstance(final Bot bot, final Player player) {
         return new Game(Status.PLAY, bot, player);
     }
 
@@ -30,9 +29,9 @@ public final class Game {
 
         do {
             player.enter(digits);
-            String inputStr = player.getInputStr();
+            final String inputStr = player.getInputStr();
 
-            int[] counts = bot.calculateStrikeAndBall(inputStr);
+            final int[] counts = bot.calculateStrikeAndBall(inputStr);
 
             this.strikeCnt = counts[0];
             this.ballCnt = counts[1];

@@ -16,7 +16,7 @@ public final class Player {
         return this.inputStr;
     }
 
-    public void enter(int digits) {
+    public void enter(final int digits) {
         final String inputStr = Console.readLine();
 
         validateInteger(inputStr);
@@ -49,7 +49,7 @@ public final class Player {
         }
     }
 
-    private void validateDigits(final String str, int digits) {
+    private void validateDigits(final String str, final int digits) {
         if (str.length() != digits) {
             throw new IllegalArgumentException("자릿수가 일치하지 않습니다.");
         }

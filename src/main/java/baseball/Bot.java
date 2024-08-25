@@ -15,7 +15,7 @@ public final class Bot {
         return new Bot();
     }
 
-    private String getRandomNumberAsString(int minNum, int maxNum, int digits) {
+    private String getRandomNumberAsString(final int minNum, final int maxNum, final int digits) {
         return Stream.generate(() -> Randoms.pickNumberInRange(minNum, maxNum))
                 .distinct()
                 .limit(digits)
@@ -23,7 +23,7 @@ public final class Bot {
                 .collect(Collectors.joining());
     }
 
-    public void setRandStr(int minNum, int maxNum, int digits) {
+    public void setRandStr(final int minNum, final int maxNum, final int digits) {
         this.randStr = getRandomNumberAsString(minNum, maxNum, digits);
     }
 

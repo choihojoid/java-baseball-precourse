@@ -3,10 +3,10 @@ package baseball;
 public class App {
 
     public static void main(String[] args) {
-        Bot bot = Bot.getInstance();
-        Player player = Player.getInstance();
+        final Bot bot = Bot.getInstance();
+        final Player player = Player.getInstance();
 
-        Game game = Game.getInstance(bot, player);
+        final Game game = Game.getInstance(bot, player);
 
         do {
             game.play();
