@@ -41,27 +41,33 @@ public final class Game {
     }
 
     public void printResult() {
-        if (strikeCnt + ballCnt == 0) {
-            System.out.println("낫싱");
-            return;
-        }
-
         if (strikeCnt == digits) {
             System.out.println("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
             return;
         }
 
-        final StringBuilder stringBuilder = new StringBuilder();
-
-        if (ballCnt != 0) {
-            stringBuilder.append(String.format("%d볼", ballCnt)).append(" ");
+        if (strikeCnt == 0 && ballCnt == 0) {
+            System.out.println("낫싱");
+            return;
         }
 
-        if (strikeCnt != 0) {
-            stringBuilder.append(String.format("%d스트라이크", strikeCnt));
+        final String resultStr = buildResultMessage();
+
+        System.out.println(resultStr);
+    }
+
+    private String buildResultMessage() {
+        final StringBuilder resultBuilder = new StringBuilder();
+
+        if (ballCnt > 0) {
+            resultBuilder.append(String.format("%d볼", ballCnt)).append(" ");
         }
 
-        System.out.println(stringBuilder);
+        if (strikeCnt > 0) {
+            resultBuilder.append(String.format("%d스트라이크", strikeCnt));
+        }
+
+        return resultBuilder.toString();
     }
 
     public void ask() {
