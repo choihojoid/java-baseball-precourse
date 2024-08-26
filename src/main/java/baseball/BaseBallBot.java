@@ -23,25 +23,16 @@ public final class BaseBallBot {
                 .collect(Collectors.joining());
     }
 
-    public void setRandStr(final int minNum, final int maxNum, final int digits) {
-        randStr = getRandomNumberAsString(minNum, maxNum, digits);
+    public String getRandStr() {
+        return randStr;
     }
 
-    public int[] calculateStrikeAndBall(final String inputStr) {
-        final int[] counts = new int[2];
+    public void reset() {
+        randStr = null;
+    }
 
-        for (int i = 0; i < randStr.length(); i++) {
-            if (randStr.charAt(i) == inputStr.charAt(i)) {
-                counts[0]++;
-                continue;
-            }
-
-            if (inputStr.contains(String.valueOf(randStr.charAt(i)))) {
-                counts[1]++;
-            }
-        }
-
-        return counts;
+    public void setRandStr(final int minNum, final int maxNum, final int digits) {
+        randStr = getRandomNumberAsString(minNum, maxNum, digits);
     }
 
 }

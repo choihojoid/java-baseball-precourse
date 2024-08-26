@@ -45,6 +45,10 @@ public final class BaseBallPlayer {
         return status == Status.QUIT;
     }
 
+    public void reset() {
+        inputStr = null;
+    }
+
     private Status fromValue(String quitStr) {
         switch (quitStr) {
             case "1":

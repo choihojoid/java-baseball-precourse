@@ -35,6 +35,7 @@ public final class BaseBallGame implements Playable {
 
     public void play() {
         do {
+            resetSet();
             startSet();
 
             if (askQuit()) {
@@ -43,20 +44,39 @@ public final class BaseBallGame implements Playable {
         } while (status == Status.PLAY);
     }
 
+    private void resetSet() {
+        strikeCnt = 0;
+        ballCnt = 0;
+
+        baseBallBot.reset();
+        baseBallPlayer.reset();
+    }
+
     private void startSet() {
         baseBallBot.setRandStr(minNum, maxNum, digits);
+        final String randStr = baseBallBot.getRandStr();
 
         do {
             baseBallPlayer.enter(digits);
             final String inputStr = baseBallPlayer.getInputStr();
 
-            final int[] counts = baseBallBot.calculateStrikeAndBall(inputStr);
-
-            strikeCnt = counts[0];
-            ballCnt = counts[1];
+            calculateStrikeAndBall(randStr, inputStr);
 
             printResult();
         } while (!isEnd());
+    }
+
+    private void calculateStrikeAndBall(final String randStr, final String inputStr) {
+        for (int i = 0; i < randStr.length(); i++) {
+            if (randStr.charAt(i) == inputStr.charAt(i)) {
+                strikeCnt++;
+                continue;
+            }
+
+            if (inputStr.contains(String.valueOf(randStr.charAt(i)))) {
+                ballCnt++;
+            }
+        }
     }
 
     private void printResult() {
