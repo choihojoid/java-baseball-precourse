@@ -11,18 +11,21 @@ public final class BaseBallPlayer {
     private String inputStr;
     private Status status;
 
-    private BaseBallPlayer() {}
-
     private enum Status { INVALID, REPLAY, QUIT }
 
+    private BaseBallPlayer() {}
+
+    // 플레이어 객체는 자기 자신을 생성해서 반환한다.
     public static BaseBallPlayer getInstance() {
         return new BaseBallPlayer();
     }
 
+    // 플레이어 객체는 입력한 숫자 문자열 반환한다.
     public String getInputStr() {
         return inputStr;
     }
 
+    // 플레이어 객체는 digits 자릿수의 숫자 문자열을 입력한다.
     public void enter(final int digits) {
         final String inputStr = Console.readLine();
 
@@ -32,6 +35,23 @@ public final class BaseBallPlayer {
         this.inputStr = inputStr;
     }
 
+    // 숫자 문자열이 맞는지 확인한다.
+    private void validateInteger(final String str) {
+        try {
+            Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(NOT_NUMBER_MSG);
+        }
+    }
+
+    // 자릿수가 맞는지 확인한다.
+    private void validateDigits(final String str, final int digits) {
+        if (str.length() != digits) {
+            throw new IllegalArgumentException(INVALID_DIGITS_MSG);
+        }
+    }
+
+    // 플레이어 객체는 1 혹은 2를 입력받아 게임을 재시작할지 결정한다.
     public boolean askQuit() {
         String quitStr = null;
 
@@ -45,10 +65,7 @@ public final class BaseBallPlayer {
         return status == Status.QUIT;
     }
 
-    public void reset() {
-        inputStr = null;
-    }
-
+    // 입력한 문자열로부터 Status를 반환한다.
     private Status fromValue(String quitStr) {
         switch (quitStr) {
             case "1":
@@ -60,18 +77,9 @@ public final class BaseBallPlayer {
         }
     }
 
-    private void validateInteger(final String str) {
-        try {
-            Integer.parseInt(str);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(NOT_NUMBER_MSG);
-        }
-    }
-
-    private void validateDigits(final String str, final int digits) {
-        if (str.length() != digits) {
-            throw new IllegalArgumentException(INVALID_DIGITS_MSG);
-        }
+    // 플레이어 객체는 상태로 가지고 있는 입력 문자열을 초기화한다.
+    public void reset() {
+        inputStr = null;
     }
 
 }

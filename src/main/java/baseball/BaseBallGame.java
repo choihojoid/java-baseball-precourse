@@ -19,20 +19,22 @@ public final class BaseBallGame implements Playable {
     private int strikeCnt;
     private int ballCnt;
 
+    private enum Status { PLAY, QUIT }
+
     private BaseBallGame(final Status status, final BaseBallBot baseBallBot, final BaseBallPlayer baseBallPlayer) {
         this.status = status;
         this.baseBallBot = baseBallBot;
         this.baseBallPlayer = baseBallPlayer;
     }
 
+    // 게임 객체는 플레이어 객체와 봇 객체를 가져와서 참조하고 자기 자신을 반환한다.
     public static BaseBallGame getInstance() {
         BaseBallBot baseBallBot = BaseBallBot.getInstance();
         BaseBallPlayer baseBallPlayer = BaseBallPlayer.getInstance();
         return new BaseBallGame(Status.PLAY, baseBallBot, baseBallPlayer);
     }
 
-    private enum Status { PLAY, QUIT }
-
+    // 게임 객체는 게임을 진행시킨다.
     public void play() {
         do {
             resetSet();
@@ -44,6 +46,7 @@ public final class BaseBallGame implements Playable {
         } while (status == Status.PLAY);
     }
 
+    // 세트 시작 전에 초기화를 수행한다.
     private void resetSet() {
         strikeCnt = 0;
         ballCnt = 0;
@@ -52,6 +55,7 @@ public final class BaseBallGame implements Playable {
         baseBallPlayer.reset();
     }
 
+    // 세트를 시작한다.
     private void startSet() {
         baseBallBot.setRandStr(minNum, maxNum, digits);
         final String randStr = baseBallBot.getRandStr();
@@ -66,6 +70,7 @@ public final class BaseBallGame implements Playable {
         } while (!isEnd());
     }
 
+    // 스트라이크, 볼을 계산한다.
     private void calculateStrikeAndBall(final String randStr, final String inputStr) {
         for (int i = 0; i < randStr.length(); i++) {
             if (randStr.charAt(i) == inputStr.charAt(i)) {
@@ -79,6 +84,7 @@ public final class BaseBallGame implements Playable {
         }
     }
 
+    // 결과를 출력한다.
     private void printResult() {
         if (strikeCnt == digits) {
             System.out.println(STRIKE_MSG);
@@ -95,6 +101,12 @@ public final class BaseBallGame implements Playable {
         System.out.println(resultStr);
     }
 
+    // 세트가 끝났는지 확인한다.
+    private boolean isEnd() {
+        return strikeCnt == digits;
+    }
+
+    // 3스크라이크나 낫싱이 아닌 경우 문자열을 빌더로 구성한다.
     private String buildResultMessage() {
         final StringBuilder resultBuilder = new StringBuilder();
 
@@ -109,12 +121,9 @@ public final class BaseBallGame implements Playable {
         return resultBuilder.toString();
     }
 
+    // 플레이어 객체에게 게임을 종료 여부를 물어본다.
     private boolean askQuit() {
         return baseBallPlayer.askQuit();
-    }
-
-    private boolean isEnd() {
-        return strikeCnt == digits;
     }
 
 }
