@@ -1,27 +1,27 @@
 package baseball;
 
-public final class Game {
+public final class BaseBallGame implements Playable {
 
     private final int minNum = 1;
     private final int maxNum = 9;
     private final int digits = 3;
-    private final Bot bot;
-    private final Player player;
+    private final BaseBallBot baseBallBot;
+    private final BaseBallPlayer baseBallPlayer;
 
     private Status status;
     private int strikeCnt;
     private int ballCnt;
 
-    private Game(final Status status, final Bot bot, final Player player) {
+    private BaseBallGame(final Status status, final BaseBallBot baseBallBot, final BaseBallPlayer baseBallPlayer) {
         this.status = status;
-        this.bot = bot;
-        this.player = player;
+        this.baseBallBot = baseBallBot;
+        this.baseBallPlayer = baseBallPlayer;
     }
 
-    public static Game getInstance() {
-        Bot bot = Bot.getInstance();
-        Player player = Player.getInstance();
-        return new Game(Status.PLAY, bot, player);
+    public static BaseBallGame getInstance() {
+        BaseBallBot baseBallBot = BaseBallBot.getInstance();
+        BaseBallPlayer baseBallPlayer = BaseBallPlayer.getInstance();
+        return new BaseBallGame(Status.PLAY, baseBallBot, baseBallPlayer);
     }
 
     private enum Status { PLAY, QUIT }
@@ -34,13 +34,13 @@ public final class Game {
     }
 
     private void startSet() {
-        bot.setRandStr(minNum, maxNum, digits);
+        baseBallBot.setRandStr(minNum, maxNum, digits);
 
         do {
-            player.enter(digits);
-            final String inputStr = player.getInputStr();
+            baseBallPlayer.enter(digits);
+            final String inputStr = baseBallPlayer.getInputStr();
 
-            final int[] counts = bot.calculateStrikeAndBall(inputStr);
+            final int[] counts = baseBallBot.calculateStrikeAndBall(inputStr);
 
             this.strikeCnt = counts[0];
             this.ballCnt = counts[1];
@@ -80,7 +80,7 @@ public final class Game {
     }
 
     private void askQuit() {
-        if (player.askQuit()) {
+        if (baseBallPlayer.askQuit()) {
             this.status = Status.QUIT;
         }
     }

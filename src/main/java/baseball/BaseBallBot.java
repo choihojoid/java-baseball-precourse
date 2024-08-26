@@ -5,14 +5,14 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class Bot {
+public final class BaseBallBot {
 
     private String randStr;
 
-    private Bot() {}
+    private BaseBallBot() {}
 
-    public static Bot getInstance() {
-        return new Bot();
+    public static BaseBallBot getInstance() {
+        return new BaseBallBot();
     }
 
     private String getRandomNumberAsString(final int minNum, final int maxNum, final int digits) {

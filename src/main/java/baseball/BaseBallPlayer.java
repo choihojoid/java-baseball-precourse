@@ -2,17 +2,17 @@ package baseball;
 
 import camp.nextstep.edu.missionutils.Console;
 
-public final class Player {
+public final class BaseBallPlayer {
 
     private String inputStr;
     private Status status;
 
-    private Player() {}
+    private BaseBallPlayer() {}
 
     private enum Status { INVALID, REPLAY, QUIT }
 
-    public static Player getInstance() {
-        return new Player();
+    public static BaseBallPlayer getInstance() {
+        return new BaseBallPlayer();
     }
 
     public String getInputStr() {

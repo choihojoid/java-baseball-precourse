@@ -3,7 +3,7 @@ package baseball;
 public class App {
 
     public static void main(String[] args) {
-        final Game game = Game.getInstance();
+        final Playable game = BaseBallGame.getInstance();
         game.play();
     }
 
