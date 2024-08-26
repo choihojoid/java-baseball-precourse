@@ -70,8 +70,8 @@ public final class Game {
         return resultBuilder.toString();
     }
 
-    public void ask() {
-        if (player.isQuit()) {
+    public void askQuit() {
+        if (player.askQuit()) {
             this.status = Status.QUIT;
         }
     }

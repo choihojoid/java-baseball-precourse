@@ -5,8 +5,11 @@ import camp.nextstep.edu.missionutils.Console;
 public final class Player {
 
     private String inputStr;
+    private Status status;
 
     private Player() {}
+
+    private enum Status { INVALID, REPLAY, QUIT }
 
     public static Player getInstance() {
         return new Player();
@@ -25,20 +28,25 @@ public final class Player {
         this.inputStr = inputStr;
     }
 
-    public boolean isQuit() {
+    public boolean askQuit() {
         String quitStr = null;
 
         do {
             System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-
             quitStr = Console.readLine();
-        } while (!checkOneOrTwo(quitStr));
 
-        return quitStr.equals("2");
+            status = fromValue(quitStr);
+        } while (status == Status.INVALID);
+
+        return status == Status.QUIT;
     }
 
-    private boolean checkOneOrTwo(final String inputStr) {
-        return inputStr.equals("1") || inputStr.equals("2");
+    private Status fromValue(String quitStr) {
+        switch (quitStr) {
+            case "1": return Status.REPLAY;
+            case "2": return Status.QUIT;
+            default: return Status.INVALID;
+        }
     }
 
     private void validateInteger(final String str) {

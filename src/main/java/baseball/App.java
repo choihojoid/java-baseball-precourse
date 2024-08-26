@@ -10,7 +10,7 @@ public class App {
 
         do {
             game.play();
-            game.ask();
+            game.askQuit();
         } while (!game.isQuit());
     }
 
