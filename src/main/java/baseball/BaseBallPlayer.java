@@ -56,7 +56,7 @@ public final class BaseBallPlayer {
         }
     }
 
-    public void validateInteger(final String str) {
+    private void validateInteger(final String str) {
         try {
             Integer.parseInt(str);
         } catch (NumberFormatException e) {
@@ -64,7 +64,7 @@ public final class BaseBallPlayer {
         }
     }
 
-    public void validateDigits(final String str, final int digits) {
+    private void validateDigits(final String str, final int digits) {
         if (str.length() != digits) {
             throw new IllegalArgumentException(INVALID_DIGITS_MSG);
         }
