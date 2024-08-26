@@ -24,7 +24,7 @@ public final class BaseBallBot {
     }
 
     public void setRandStr(final int minNum, final int maxNum, final int digits) {
-        this.randStr = getRandomNumberAsString(minNum, maxNum, digits);
+        randStr = getRandomNumberAsString(minNum, maxNum, digits);
     }
 
     public int[] calculateStrikeAndBall(final String inputStr) {

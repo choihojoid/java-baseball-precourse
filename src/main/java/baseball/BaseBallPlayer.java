@@ -20,7 +20,7 @@ public final class BaseBallPlayer {
     }
 
     public String getInputStr() {
-        return this.inputStr;
+        return inputStr;
     }
 
     public void enter(final int digits) {
@@ -47,9 +47,12 @@ public final class BaseBallPlayer {
 
     private Status fromValue(String quitStr) {
         switch (quitStr) {
-            case "1": return Status.REPLAY;
-            case "2": return Status.QUIT;
-            default: return Status.INVALID;
+            case "1":
+                return Status.REPLAY;
+            case "2":
+                return Status.QUIT;
+            default:
+                return Status.INVALID;
         }
     }
 

@@ -36,8 +36,11 @@ public final class BaseBallGame implements Playable {
     public void play() {
         do {
             startSet();
-            askQuit();
-        } while (!isQuit());
+
+            if (askQuit()) {
+                status = Status.QUIT;
+            }
+        } while (status == Status.PLAY);
     }
 
     private void startSet() {
@@ -49,8 +52,8 @@ public final class BaseBallGame implements Playable {
 
             final int[] counts = baseBallBot.calculateStrikeAndBall(inputStr);
 
-            this.strikeCnt = counts[0];
-            this.ballCnt = counts[1];
+            strikeCnt = counts[0];
+            ballCnt = counts[1];
 
             printResult();
         } while (!isEnd());
@@ -86,18 +89,12 @@ public final class BaseBallGame implements Playable {
         return resultBuilder.toString();
     }
 
-    private void askQuit() {
-        if (baseBallPlayer.askQuit()) {
-            this.status = Status.QUIT;
-        }
+    private boolean askQuit() {
+        return baseBallPlayer.askQuit();
     }
 
     private boolean isEnd() {
-        return this.strikeCnt == digits;
-    }
-
-    private boolean isQuit() {
-        return this.status == Status.QUIT;
+        return strikeCnt == digits;
     }
 
 }
