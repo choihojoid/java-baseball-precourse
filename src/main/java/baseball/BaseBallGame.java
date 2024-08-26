@@ -5,6 +5,13 @@ public final class BaseBallGame implements Playable {
     private final int minNum = 1;
     private final int maxNum = 9;
     private final int digits = 3;
+
+    private final String STRIKE_MSG = "3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+    private final String NOTHING_MSG = "낫싱";
+
+    private final String BALL = "볼";
+    private final String STRIKE = "스트라이크";
+
     private final BaseBallBot baseBallBot;
     private final BaseBallPlayer baseBallPlayer;
 
@@ -51,12 +58,12 @@ public final class BaseBallGame implements Playable {
 
     private void printResult() {
         if (strikeCnt == digits) {
-            System.out.println("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            System.out.println(STRIKE_MSG);
             return;
         }
 
         if (strikeCnt == 0 && ballCnt == 0) {
-            System.out.println("낫싱");
+            System.out.println(NOTHING_MSG);
             return;
         }
 
@@ -69,11 +76,11 @@ public final class BaseBallGame implements Playable {
         final StringBuilder resultBuilder = new StringBuilder();
 
         if (ballCnt > 0) {
-            resultBuilder.append(String.format("%d볼", ballCnt)).append(" ");
+            resultBuilder.append(ballCnt).append(BALL).append(" ");
         }
 
         if (strikeCnt > 0) {
-            resultBuilder.append(String.format("%d스트라이크", strikeCnt));
+            resultBuilder.append(strikeCnt).append(STRIKE);
         }
 
         return resultBuilder.toString();
