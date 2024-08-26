@@ -18,13 +18,22 @@ public final class Game {
         this.player = player;
     }
 
-    public static Game getInstance(final Bot bot, final Player player) {
+    public static Game getInstance() {
+        Bot bot = Bot.getInstance();
+        Player player = Player.getInstance();
         return new Game(Status.PLAY, bot, player);
     }
 
     private enum Status { PLAY, QUIT }
 
     public void play() {
+        do {
+            startSet();
+            askQuit();
+        } while (!isQuit());
+    }
+
+    private void startSet() {
         bot.setRandStr(minNum, maxNum, digits);
 
         do {
@@ -40,7 +49,7 @@ public final class Game {
         } while (!isEnd());
     }
 
-    public void printResult() {
+    private void printResult() {
         if (strikeCnt == digits) {
             System.out.println("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료");
             return;
@@ -70,7 +79,7 @@ public final class Game {
         return resultBuilder.toString();
     }
 
-    public void askQuit() {
+    private void askQuit() {
         if (player.askQuit()) {
             this.status = Status.QUIT;
         }
@@ -80,7 +89,7 @@ public final class Game {
         return this.strikeCnt == digits;
     }
 
-    public boolean isQuit() {
+    private boolean isQuit() {
         return this.status == Status.QUIT;
     }
 
